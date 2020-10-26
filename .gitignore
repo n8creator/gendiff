@@ -1,0 +1,9 @@
+*.pyc
+__pycache__/
+gendiff/__pycache__/
+.DS_Store
+*.egg-info
+dist/
+.venv/
+.idea/
+.vscode/
