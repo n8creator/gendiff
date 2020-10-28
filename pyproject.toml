@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "n8creator_gendiff"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["n8creator <n8creator@pm.me>"]
 packages = [
