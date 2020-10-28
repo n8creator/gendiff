@@ -1,5 +1,4 @@
 *.pyc
-*.json
 __pycache__/
 gendiff/__pycache__/
 .DS_Store
