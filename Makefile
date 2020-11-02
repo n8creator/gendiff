@@ -7,4 +7,7 @@ lint:
 test:
 	poetry run pytest -v --verbose --cov=gendiff tests/
 
-.PHONY: install lint
+coverage_xml:
+	poetry run coverage xml
+
+.PHONY: install lint test
