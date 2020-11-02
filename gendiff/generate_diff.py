@@ -1,6 +1,6 @@
 """Generate Difference Module."""
-import json
 import re
+from gendiff.file_to_json import file_to_json
 
 
 def generate_diff(file_path1, file_path2):
@@ -17,9 +17,8 @@ def generate_diff(file_path1, file_path2):
         [string]: formatted string
     """
 
-    # Parse two files into variables
-    input = json.load(open(file_path1))
-    output = json.load(open(file_path2))
+    # Converting files to .json format
+    input, output = file_to_json(file_path1), file_to_json(file_path2)
 
     # Comparing two dictionaries to find differences
     deleted = set(input.items()) - set(output.items())
