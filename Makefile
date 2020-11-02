@@ -5,6 +5,6 @@ lint:
 	poetry run flake8 gendiff
 
 test:
-	poetry run pytest tests -vv
+	poetry run pytest -v --verbose --cov=gendiff tests/
 
 .PHONY: install lint
