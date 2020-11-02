@@ -10,4 +10,4 @@
 
 
 #### yml files
-<script id="asciicast-9XRD9uar4IlzdqaX7MuD7HR9K" src="https://asciinema.org/a/9XRD9uar4IlzdqaX7MuD7HR9K.js" async></script>
+[![asciicast](https://asciinema.org/a/9XRD9uar4IlzdqaX7MuD7HR9K.svg)](https://asciinema.org/a/9XRD9uar4IlzdqaX7MuD7HR9K)
