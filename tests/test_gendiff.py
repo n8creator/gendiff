@@ -7,3 +7,11 @@ def test_diff_json():
     assert generate_diff('tests/fixtures/input.json',
                          'tests/fixtures/output.json') == check.read()
     check.close()
+
+
+def test_diff_yml():
+    """Simple test for foat YML/YAML files."""
+    check = open('tests/fixtures/diff_yml.txt', 'r', encoding='UTF-8')
+    assert generate_diff('tests/fixtures/input.yml',
+                         'tests/fixtures/output.yml') == check.read()
+    check.close()
