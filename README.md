@@ -5,4 +5,9 @@
 ![Actions Status](https://github.com/n8creator/python-project-lvl2/workflows/hexlet-check/badge.svg)
 
 ### Gendiff Script Demonstration:
+#### json files
 [![asciicast](https://asciinema.org/a/UXVZ60rpVkuRMm71sNwVwQUsr.svg)](https://asciinema.org/a/UXVZ60rpVkuRMm71sNwVwQUsr)
+
+
+#### yml files
+<script id="asciicast-9XRD9uar4IlzdqaX7MuD7HR9K" src="https://asciinema.org/a/9XRD9uar4IlzdqaX7MuD7HR9K.js" async></script>
