@@ -10,4 +10,10 @@ test:
 coverage_xml:
 	poetry run coverage xml
 
-.PHONY: install lint test
+run_json:
+	poetry run gendiff tests/fixtures/input.json  tests/fixtures/output.json
+
+run_yml:
+	poetry run gendiff tests/fixtures/input.yml  tests/fixtures/output.yml
+
+.PHONY: install lint test coverage_xml run_json run_yml
