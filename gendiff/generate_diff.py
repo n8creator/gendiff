@@ -6,7 +6,7 @@ from gendiff.file_to_json import file_to_json
 def generate_diff(file_path1, file_path2):
     """Generate Difference Function.
 
-    Function accepts two .json files (input file and output file), and
+    Function accepts two files (input file and output file), and
     finds the difference between keys and values in these files.
 
     Args:
@@ -17,35 +17,38 @@ def generate_diff(file_path1, file_path2):
         [string]: formatted string
     """
 
-    # Converting files to .json format
+    # Converting function agruments to .json format
     input, output = file_to_json(file_path1), file_to_json(file_path2)
 
-    # Comparing two dictionaries to find differences
-    deleted = set(input.items()) - set(output.items())
-    added = set(output.items()) - set(input.items())
-    unchanged = set(output.items()) & set(input.items())
+    # Comparing input and output dict's to find difference between keys
+    deleted = input.keys() - output.keys()
+    added = output.keys() - input.keys()
+    intersected = input.keys() & output.keys()
 
-    # Converting sets() to dicts{}
-    deleted, added, unchanged = dict(deleted), dict(added), dict(unchanged)
+    # Saving deleted and added items into difference[] list
+    difference = []
 
-    # Saving results into output[] list
-    output = []
+    for key in deleted:
+        difference.append('   - {0}: {1}'.format(key, input[key]))
+    for key in added:
+        difference.append('   + {0}: {1}'.format(key, output[key]))
 
-    for key, value in deleted.items():
-        output.append('   - {0}: {1}'.format(key, value))
-    for key, value in added.items():
-        output.append('   + {0}: {1}'.format(key, value))
-    for key, value in unchanged.items():
-        output.append('   {0}: {1}'.format(key, value))
+    # Saving unchanged & changed items into difference[] list
+    for key in intersected:
+        if input[key] == output[key]:
+            difference.append('   {0}: {1}'.format(key, input[key]))
+        else:
+            difference.append('   - {0}: {1}'.format(key, input[key]))
+            difference.append('   + {0}: {1}'.format(key, output[key]))
 
-    # Sorting list by key (key is left part of string before colon)
-    # without first arithmetic sign
-    output = sorted(output,
-                    key=lambda item: re.search(r'[\w\d]*\:', item).group())
+    # Sorting difference[] list by key (key here is left part of string
+    # before colon without first arithmetic sign and space sign after it)
+    difference = sorted(difference,
+                        key=lambda item: re.search(r'[\w\d]*\:', item).group())
 
     # Adding opening and closing brackets to list
-    output.insert(0, '{')
-    output.append('}')
+    difference.insert(0, '{')
+    difference.append('}')
 
     # Returning result
-    return "\n".join(output)
+    return "\n".join(difference)
