@@ -9,7 +9,7 @@ def file_to_json(file_path):
     """Convert file to .json format.
 
     Function accepts some input file with .json, .yml or .yaml extension
-    and returns .json formatted file.
+    and returns file in .json format.
 
     Args:
         file_path ([type]): input file (.json, .yml, .yaml extensions suported)
