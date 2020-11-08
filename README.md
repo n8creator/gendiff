@@ -11,3 +11,6 @@
 
 #### yml files
 [![asciicast](https://asciinema.org/a/9XRD9uar4IlzdqaX7MuD7HR9K.svg)](https://asciinema.org/a/9XRD9uar4IlzdqaX7MuD7HR9K)
+
+### nested json files
+[![asciicast](https://asciinema.org/a/BOBZn7wlRDii1fPnahhOlBHDs.svg)](https://asciinema.org/a/BOBZn7wlRDii1fPnahhOlBHDs)
