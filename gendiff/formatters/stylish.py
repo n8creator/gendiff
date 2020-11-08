@@ -42,8 +42,8 @@ def render(diff_dict, spaces=2):
                                 render(node['values'], spaces=spaces+SPACE),
                                 spaces)
 
-        # If node has dict type but not equals CHANGED nor NESTED, that
-        # means node may belong to ADDED, DELETED or UNMODIFIED type.
+        # If node has dict type but not equals CHANGED nor NESTED, that means
+        # node may belong to ADDED, DELETED or UNMODIFIED type.
         # In this case we need to format node by appending spaces and
         # arithmetic sign in output string (before node type)
         elif not node['type'] == CHANGED and isinstance(node['values'], dict):
@@ -51,18 +51,18 @@ def render(diff_dict, spaces=2):
                                 render(node['values'], spaces=spaces+SPACE),
                                 spaces, sign=SIGN_CONVERTER[node['type']])
 
-        # If node has CHANGED type, these changes could have been made
-        # in three ways
+        # If node has CHANGED type, these changes could have been made in
+        # three ways
         elif node['type'] == CHANGED:
 
             # Case 1: OLD value is dict and NEW value is not
             if isinstance(node['values'][OLD_VAL], dict) and\
-                    not isinstance(node['values'][NEW_VAL], dict):
-                output += formatter(type, nest_formatter(
-                                            node['values'][OLD_VAL],
-                                            spaces=spaces+SPACE
-                                            ),
-                                    spaces=spaces, sign='-')
+                          not isinstance(node['values'][NEW_VAL], dict):
+                output += formatter(type,
+                                    nest_formatter(node['values'][OLD_VAL],
+                                                   spaces=spaces+SPACE),
+                                    spaces=spaces,
+                                    sign='-')
                 output += formatter(type, node['values'][NEW_VAL],
                                     spaces=spaces, sign='+')
 

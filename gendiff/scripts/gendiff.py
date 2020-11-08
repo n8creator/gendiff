@@ -16,7 +16,7 @@ def main():
     # Generating diff between input & output files
     diff = generate_diff(input, output)
 
-    # Return formatted diff
+    # Return formatted diff with 'format' argument specified by user from CLI
     print(format_diff(diff, format))
 
 
