@@ -17,3 +17,7 @@
 
 ### Nested JSON files in plain output format
 [![asciicast](https://asciinema.org/a/Dtzp7C1BOkOTjwo04oJEyzD7u.svg)](https://asciinema.org/a/Dtzp7C1BOkOTjwo04oJEyzD7u)
+
+
+### Nested JSON files in json output format
+[![asciicast](https://asciinema.org/a/OuKI4rcUUO9tbDeqPcLIMLMcf.svg)](https://asciinema.org/a/OuKI4rcUUO9tbDeqPcLIMLMcf)
