@@ -4,6 +4,33 @@ ADDED, DELETED, NESTED = 'added', 'deleted', 'nested'
 UNMODIFIED, CHANGED = 'unmodified', 'changed'
 
 
+def to_string(value):
+    """System Keyword to String Converter.
+
+    Function accept some value, and checks if this value belong to a system
+    value. In True case function return system value formatted as string,
+    otherwise function returns value "as it is" without any formatting.
+
+    Args:
+        value ([string, dict, bool, None]): any value
+
+    Returns:
+        value ([string, dict]): formatted value
+    """
+
+    # Values dict needed to be converted
+    converter = {
+        None: 'null',
+        False: 'false',
+        True: 'true'
+    }
+
+    if not isinstance(value, dict) and value in converter:
+        return converter[value]
+    else:
+        return value
+
+
 def generate_diff(input, output):
     """Generate Difference Function.
 
@@ -11,11 +38,12 @@ def generate_diff(input, output):
     the difference between keys and values in those dicts.
 
     Args:
-        input ([dict]): input dict (contains the original data)
+        input ([dict]): input dict (contains original data)
         output ([dict]): output dict (contains modified data)
 
     Returns:
-        differenct ([dict]): analyzed dict
+        difference ([dict]): output dict containing difference
+                             between input & output dicts
     """
 
     # Comparing input and output dict's to find differences between keys
@@ -26,6 +54,7 @@ def generate_diff(input, output):
     # Initializing variable containing function output
     difference = {}
 
+    # Traversing each element of the tree
     for key in intersected:
         input_value, output_value = input[key], output[key]
 
@@ -36,10 +65,13 @@ def generate_diff(input, output):
                                 })
         elif input_value == output_value:
             difference[key] = ({'type': UNMODIFIED,
-                               'values': input_value})
+                               'values': to_string(input_value)})
         else:
             difference[key] = ({'type': CHANGED,
-                                'values': (input_value, output_value)})
+                                'values': (to_string(input_value),
+                                           to_string(output_value)
+                                           )
+                                })
 
     for key in added:
         values = output[key]
@@ -48,7 +80,7 @@ def generate_diff(input, output):
                                 'values': generate_diff(values, values)
                                 })
         else:
-            difference[key] = ({'type': ADDED, 'values': values})
+            difference[key] = ({'type': ADDED, 'values': to_string(values)})
 
     for key in deleted:
         values = input[key]
@@ -57,7 +89,7 @@ def generate_diff(input, output):
                                 'values': generate_diff(values, values)
                                 })
         else:
-            difference[key] = ({'type': DELETED, 'values': values})
+            difference[key] = ({'type': DELETED, 'values': to_string(values)})
 
     # Returning function output
     return difference
