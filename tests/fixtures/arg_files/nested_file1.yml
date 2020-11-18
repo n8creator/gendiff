@@ -4,7 +4,8 @@ common:
   setting3: true
   setting6:
     key: value
-    doge: {}
+    doge:
+      wow: bark
 group1:
   baz: bas
   foo: bar

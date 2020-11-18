@@ -1,79 +1,84 @@
 from gendiff.generate_diff import generate_diff
 from gendiff.to_json_converter import file_to_json as to_json
 from gendiff.format_diff import format_diff
+import pytest
 
 
-def test_flat():
-    """Tests for flat files with Standard output."""
+@pytest.mark.parametrize('input_file, output_file, expected', [
+                (
+                    # Params for testing flat JSON files
+                    to_json('tests/fixtures/arg_files/file1.json'),
+                    to_json('tests/fixtures/arg_files/file2.json'),
+                    'tests/fixtures/expected_outputs/default_for_flat.txt'
+                ),
+                (
+                    # Params for testing flat YML files
+                    to_json('tests/fixtures/arg_files/file1.yml'),
+                    to_json('tests/fixtures/arg_files/file2.yml'),
+                    'tests/fixtures/expected_outputs/default_for_flat.txt'
+                ),
+                (
+                    # Params for testing nested JSON files
+                    to_json('tests/fixtures/arg_files/nested_file1.json'),
+                    to_json('tests/fixtures/arg_files/nested_file2.json'),
+                    'tests/fixtures/expected_outputs/default_for_nested.txt'
+                ),
+                (
+                    # Params for testing nested YML files
+                    to_json('tests/fixtures/arg_files/nested_file1.yml'),
+                    to_json('tests/fixtures/arg_files/nested_file2.yml'),
+                    'tests/fixtures/expected_outputs/default_for_nested.txt'
+                ),
+            ])
+def test_default_output(input_file, output_file, expected):
+    """Test for json & yml files with Default output."""
 
-    # Test for flat JSON files
-    check = open('tests/fixtures/outputs/json_flat_standard.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/input.json'),
-                         to_json('tests/fixtures/inputs/output.json'))
-    assert format_diff(diff) == check.read()
-    check.close()
-
-    # Test for flat YML files
-    check = open('tests/fixtures/outputs/yml_flat_standard.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/input.yml'),
-                         to_json('tests/fixtures/inputs/output.yml'))
-    assert format_diff(diff) == check.read()
-    check.close()
-
-
-def test_nest():
-    """Tests for nested files with Standard output."""
-
-    # Test for nested JSON files
-    check = open('tests/fixtures/outputs/json_nest_standard.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/nest_input.json'),
-                         to_json('tests/fixtures/inputs/nest_output.json'))
-    assert format_diff(diff) == check.read()
-    check.close()
-
-    # Test for nested YML files
-    check = open('tests/fixtures/outputs/yml_nest_standard.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/nest_input.yml'),
-                         to_json('tests/fixtures/inputs/nest_output.yml'))
-    assert format_diff(diff) == check.read()
+    check = open(expected, 'r', encoding='UTF-8')
+    assert format_diff(generate_diff(input_file, output_file)) == check.read()
     check.close()
 
 
-def test_nested_formatted():
-    """Tests for nested files with Plain or JSON output."""
+@pytest.mark.parametrize('input_file, output_file, expected', [
+                (
+                    # Params for testing nested JSON files with Plain output
+                    to_json('tests/fixtures/arg_files/nested_file1.json'),
+                    to_json('tests/fixtures/arg_files/nested_file2.json'),
+                    'tests/fixtures/expected_outputs/plain_for_nested.txt'
+                ),
+                (
+                    # Params for testing nested YML files with Plain output
+                    to_json('tests/fixtures/arg_files/nested_file1.yml'),
+                    to_json('tests/fixtures/arg_files/nested_file2.yml'),
+                    'tests/fixtures/expected_outputs/plain_for_nested.txt'
+                )
+            ])
+def test_plain_output(input_file, output_file, expected):
+    """Test for json & yml files with Plain output."""
 
-    # Test for nested JSON files with Plain output
-    check = open('tests/fixtures/outputs/json_nest_plain.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/nest_input.json'),
-                         to_json('tests/fixtures/inputs/nest_output.json'))
-    assert format_diff(diff, 'plain') == check.read()
+    check = open(expected, 'r', encoding='UTF-8')
+    assert format_diff(generate_diff(input_file, output_file),
+                       'plain') == check.read()
     check.close()
 
-    # Test for nested JSON files with JSON output
-    check = open('tests/fixtures/outputs/json_nest_json.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/nest_input.json'),
-                         to_json('tests/fixtures/inputs/nest_output.json'))
-    assert format_diff(diff, 'json') == check.read()
-    check.close()
 
-    # Test for nested YML files with Plain output
-    check = open('tests/fixtures/outputs/yml_nest_plain.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/nest_input.yml'),
-                         to_json('tests/fixtures/inputs/nest_output.yml'))
-    assert format_diff(diff, 'plain') == check.read()
-    check.close()
+@pytest.mark.parametrize('input_file, output_file, expected', [
+                (
+                    # Params for testing nested JSON files with JSON output
+                    to_json('tests/fixtures/arg_files/nested_file1.json'),
+                    to_json('tests/fixtures/arg_files/nested_file2.json'),
+                    'tests/fixtures/expected_outputs/json_for_nested.txt'
+                ),
+                (
+                    # Params for testing nested YML files with JSON output
+                    to_json('tests/fixtures/arg_files/nested_file1.yml'),
+                    to_json('tests/fixtures/arg_files/nested_file2.yml'),
+                    'tests/fixtures/expected_outputs/json_for_nested.txt'
+                )
+            ])
+def test_json_output(input_file, output_file, expected):
+    """Test for json & yml files with JSON output."""
 
-    # Test for nested YML files with JSON output
-    check = open('tests/fixtures/outputs/yml_nest_json.txt',
-                 'r', encoding='UTF-8')
-    diff = generate_diff(to_json('tests/fixtures/inputs/nest_input.yml'),
-                         to_json('tests/fixtures/inputs/nest_output.yml'))
-    assert format_diff(diff, 'json') == check.read()
+    check = open(expected, 'r', encoding='UTF-8')
+    assert format_diff(generate_diff(input_file, output_file),
+                       'json') == check.read()
     check.close()
