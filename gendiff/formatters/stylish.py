@@ -29,36 +29,33 @@ def nest_formatter(dict_, spaces):
 
 
 def render_engine(diff, spaces):
-    # Initialize output string
-    output = '{' + '\n'
+    # Initialize output list
+    output = []
+    output.append('{\n')
 
     # Iterate diff_dict
     for type, node in sorted(diff.items()):
 
-        # If node type has NESTED type then we put node value in render()
-        # function and call it recursively
+        # If node type has NESTED type then we put node value in
+        # render_engine() function and call it recursively
         if node['type'] == NESTED:
-            output += formatter(type,
-                                render_engine(
-                                    node['values'],
-                                    spaces=spaces+SPACE
-                                    ),
-                                spaces
-                                )
+            output.append(formatter(type,
+                                    render_engine(
+                                        node['values'],
+                                        spaces=spaces+SPACE),
+                                    spaces))
 
         # If node has dict type but not equals CHANGED nor NESTED, that means
         # node may belong to ADDED, DELETED or UNMODIFIED type.
         # In this case we need to format node by appending spaces and
         # arithmetic sign in output string (before node type)
         elif not node['type'] == CHANGED and isinstance(node['values'], dict):
-            output += formatter(type,
-                                render_engine(
-                                    node['values'],
-                                    spaces=spaces+SPACE
-                                    ),
-                                spaces,
-                                sign=SIGN_CONVERTER[node['type']]
-                                )
+            output.append(formatter(type,
+                                    render_engine(
+                                        node['values'],
+                                        spaces=spaces+SPACE),
+                                    spaces,
+                                    sign=SIGN_CONVERTER[node['type']]))
 
         # If node has CHANGED type, these changes could have been made in
         # three ways
@@ -67,41 +64,43 @@ def render_engine(diff, spaces):
             # Case 1: OLD value is dict and NEW value is not
             if isinstance(node['values'][OLD_VAL], dict) and\
                           not isinstance(node['values'][NEW_VAL], dict):
-                output += formatter(type,
-                                    nest_formatter(node['values'][OLD_VAL],
-                                                   spaces=spaces+SPACE),
-                                    spaces=spaces,
-                                    sign='-')
-                output += formatter(type, node['values'][NEW_VAL],
-                                    spaces=spaces, sign='+')
+                output.append(formatter(type,
+                                        nest_formatter(
+                                            node['values'][OLD_VAL],
+                                            spaces=spaces+SPACE),
+                                        spaces=spaces,
+                                        sign='-'))
+                output.append(formatter(type, node['values'][NEW_VAL],
+                                        spaces=spaces, sign='+'))
 
             # Case 2: NEW value is dict and OLD value is not
             elif not isinstance(node['values'][OLD_VAL], dict) and\
                     isinstance(node['values'][NEW_VAL], dict):
-                output += formatter(type, nest_formatter(
-                                            node['values'][NEW_VAL],
-                                            spaces=spaces+SPACE
-                                            ),
-                                    spaces=spaces, sign='-')
-                output += formatter(type, node['values'][NEW_VAL],
-                                    spaces=spaces, sign='+')
+                output.append(formatter(type, nest_formatter(
+                                                node['values'][NEW_VAL],
+                                                spaces=spaces+SPACE
+                                                ),
+                                        spaces=spaces,
+                                        sign='-'))
+                output.append(formatter(type, node['values'][NEW_VAL],
+                                        spaces=spaces, sign='+'))
 
             # Case 3: Both NEW & OLD values are not dict's
             else:
-                output += formatter(type, node['values'][OLD_VAL],
-                                    spaces=spaces, sign='+')
-                output += formatter(type, node['values'][NEW_VAL],
-                                    spaces=spaces, sign='-')
+                output.append(formatter(type, node['values'][OLD_VAL],
+                                        spaces=spaces, sign='+'))
+                output.append(formatter(type, node['values'][NEW_VAL],
+                                        spaces=spaces, sign='-'))
 
         # Any other cases (if node has been ADDED, DELETED or UNMODIFIED)
         else:
-            output += formatter(type, node['values'],
-                                spaces=spaces,
-                                sign=SIGN_CONVERTER[node['type']])
+            output.append(formatter(type, node['values'],
+                                    spaces=spaces,
+                                    sign=SIGN_CONVERTER[node['type']]))
 
     # Returning output
-    output += ' ' * (spaces-2) + '}'
-    return output
+    output.append(' ' * (spaces-2) + '}')
+    return ''.join(output)
 
 
 def render(diff):

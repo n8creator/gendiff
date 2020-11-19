@@ -13,18 +13,18 @@ def generate_plain_string(key, value, type, replaced_value="None"):
 
     # Code below returns formatted strings
     if type == ADDED:
-        return 'Property {0} was added with value: {1}\n'.\
+        return 'Property {0} was added with value: {1}'.\
             format(key, value)
     elif type == DELETED:
-        return 'Property {0} was removed\n'.format(key)
+        return 'Property {0} was removed'.format(key)
     elif type == CHANGED:
-        return 'Property {0} was updated. From {1} to {2}\n'.\
+        return 'Property {0} was updated. From {1} to {2}'.\
             format(key, value, replaced_value)
 
 
 def render_plain_engine(diff, path):
     # Initialize output variable
-    output = ''
+    output = []
 
     for key, data in sorted(diff.items()):
         # Generate path from the root as a plain string
@@ -32,23 +32,28 @@ def render_plain_engine(diff, path):
 
         # diff_dict traversal
         if data['type'] == NESTED:
-            output += render_plain_engine(data['values'], root_path) + '\n'
+            output.append(render_plain_engine(data['values'],
+                                              root_path)
+                          )
         elif data['type'] == ADDED:
-            output += generate_plain_string(root_path,
-                                            data['values'],
-                                            ADDED)
+            output.append(generate_plain_string(root_path,
+                                                data['values'],
+                                                ADDED)
+                          )
         elif data['type'] == DELETED:
-            output += generate_plain_string(root_path,
-                                            data['values'],
-                                            DELETED)
+            output.append(generate_plain_string(root_path,
+                                                data['values'],
+                                                DELETED)
+                          )
         elif data['type'] == CHANGED:
-            output += generate_plain_string(root_path,
-                                            data['values'][OLD_VAL],
-                                            CHANGED,
-                                            data['values'][NEW_VAL])
+            output.append(generate_plain_string(root_path,
+                                                data['values'][OLD_VAL],
+                                                CHANGED,
+                                                data['values'][NEW_VAL])
+                          )
 
-    # Return output without empty rows
-    return output.strip('\n')
+    # Return output as a string
+    return '\n'.join(output)
 
 
 def render_plain(diff):
