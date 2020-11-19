@@ -26,9 +26,7 @@ def to_json(file_path):
 
     # Processing files with .yml or .yaml extension
     elif file_extension == '.yml' or '.yaml':
-        with open(file_path) as file:
-            file_data = yaml.safe_load(file)
-            json_string = json.dumps(file_data)
-            output = json.loads(json_string)
+        output = yaml.safe_load(open(file_path))
 
+    # print(output)
     return output
