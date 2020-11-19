@@ -31,7 +31,7 @@ def to_string(value):
         return value
 
 
-def generate_diff(input, output):
+def generate_difference(input, output):
     """Generate Difference Function.
 
     Function accepts two dicts (input and output), and finds
@@ -60,8 +60,8 @@ def generate_diff(input, output):
 
         if isinstance(input_value, dict) and isinstance(output_value, dict):
             difference[key] = ({'type': NESTED,
-                                'values': generate_diff(input_value,
-                                                        output_value)
+                                'values': generate_difference(input_value,
+                                                              output_value)
                                 })
         elif input_value == output_value:
             difference[key] = ({'type': UNMODIFIED,
@@ -77,7 +77,7 @@ def generate_diff(input, output):
         values = output[key]
         if type(values) == dict:
             difference[key] = ({'type': ADDED,
-                                'values': generate_diff(values, values)
+                                'values': generate_difference(values, values)
                                 })
         else:
             difference[key] = ({'type': ADDED, 'values': to_string(values)})
@@ -86,7 +86,7 @@ def generate_diff(input, output):
         values = input[key]
         if type(values) == dict:
             difference[key] = ({'type': DELETED,
-                                'values': generate_diff(values, values)
+                                'values': generate_difference(values, values)
                                 })
         else:
             difference[key] = ({'type': DELETED, 'values': to_string(values)})

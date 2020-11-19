@@ -5,7 +5,7 @@ import yaml
 SUFFIX = -1
 
 
-def file_to_json(file_path):
+def to_json(file_path):
     """Convert file to .json format.
 
     Function accepts some input file with .json, .yml or .yaml extension
