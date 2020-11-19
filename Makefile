@@ -11,27 +11,27 @@ coverage_xml:
 	poetry run coverage xml
 
 run_json:
-	poetry run gendiff tests/fixtures/1_input.json  tests/fixtures/1_output.json
+	poetry run gendiff tests/fixtures/arg_files/file1.json  tests/fixtures/arg_files/file2.json
 
 run_yml:
-	poetry run gendiff tests/fixtures/2_input.yml  tests/fixtures/2_output.yml
+	poetry run gendiff tests/fixtures/arg_files/file1.yml  tests/fixtures/arg_files/file2.yml
 
 run_json_nest:
-	poetry run gendiff tests/fixtures/3_nested_input.json  tests/fixtures/3_nested_output.json
+	poetry run gendiff tests/fixtures/arg_files/nested1.json  tests/fixtures/arg_files/nested2.json
 
 run_json_nest_plain:
-	poetry run gendiff tests/fixtures/3_nested_input.json  tests/fixtures/3_nested_output.json --format plain
+	poetry run gendiff tests/fixtures/arg_files/nested1.json  tests/fixtures/arg_files/nested2.json --format plain
 
 run_json_nest_json:
-	poetry run gendiff tests/fixtures/3_nested_input.json  tests/fixtures/3_nested_output.json --format json
+	poetry run gendiff tests/fixtures/arg_files/nested1.json  tests/fixtures/arg_files/nested2.json --format json
 
 run_yml_nest:
-	poetry run gendiff tests/fixtures/4_nested_input.yml  tests/fixtures/4_nested_output.yml
+	poetry run gendiff tests/fixtures/arg_files/nested1.yml  tests/fixtures/arg_files/nested2.yml
 
 run_yml_nest_plain:
-	poetry run gendiff tests/fixtures/4_nested_input.yml  tests/fixtures/4_nested_output.yml -f plain
+	poetry run gendiff tests/fixtures/arg_files/nested1.yml  tests/fixtures/arg_files/nested2.yml -f plain
 
 run_yml_nest_json:
-	poetry run gendiff tests/fixtures/4_nested_input.yml  tests/fixtures/4_nested_output.yml -f json
+	poetry run gendiff tests/fixtures/arg_files/nested1.yml  tests/fixtures/arg_files/nested2.yml -f json
 
 .PHONY: install lint test coverage_xml run_json run_yml run_json_nest run_yml_nest
