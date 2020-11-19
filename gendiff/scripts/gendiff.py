@@ -8,7 +8,9 @@ def main():
     args = parse_args()
 
     # Returning formatted diff with 'format' argument specified by user
-    print(formatted_diff(args.first_file, args.second_file, args.format))
+    print(formatted_diff(input=args.first_file,
+                         output=args.second_file,
+                         format=args.format))
 
 
 if __name__ == '__main__':

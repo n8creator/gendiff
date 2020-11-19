@@ -22,17 +22,17 @@ def generate_plain_string(key, value, type, replaced_value="None"):
             format(key, value, replaced_value)
 
 
-def render_plain(diff_dict, path=None):
+def render_plain_engine(diff, path):
     # Initialize output variable
     output = ''
 
-    for key, data in sorted(diff_dict.items()):
+    for key, data in sorted(diff.items()):
         # Generate path from the root as a plain string
         root_path = '{0}.{1}'.format(path, key) if path else key
 
         # diff_dict traversal
         if data['type'] == NESTED:
-            output += render_plain(data['values'], root_path) + '\n'
+            output += render_plain_engine(data['values'], root_path) + '\n'
         elif data['type'] == ADDED:
             output += generate_plain_string(root_path,
                                             data['values'],
@@ -49,3 +49,7 @@ def render_plain(diff_dict, path=None):
 
     # Return output without empty rows
     return output.strip('\n')
+
+
+def render_plain(diff):
+    return render_plain_engine(diff, path=None)

@@ -28,19 +28,23 @@ def nest_formatter(dict_, spaces):
     return output
 
 
-def render(diff_dict, spaces=2):
+def render_engine(diff, spaces):
     # Initialize output string
     output = '{' + '\n'
 
     # Iterate diff_dict
-    for type, node in sorted(diff_dict.items()):
+    for type, node in sorted(diff.items()):
 
         # If node type has NESTED type then we put node value in render()
         # function and call it recursively
         if node['type'] == NESTED:
             output += formatter(type,
-                                render(node['values'], spaces=spaces+SPACE),
-                                spaces)
+                                render_engine(
+                                    node['values'],
+                                    spaces=spaces+SPACE
+                                    ),
+                                spaces
+                                )
 
         # If node has dict type but not equals CHANGED nor NESTED, that means
         # node may belong to ADDED, DELETED or UNMODIFIED type.
@@ -48,8 +52,13 @@ def render(diff_dict, spaces=2):
         # arithmetic sign in output string (before node type)
         elif not node['type'] == CHANGED and isinstance(node['values'], dict):
             output += formatter(type,
-                                render(node['values'], spaces=spaces+SPACE),
-                                spaces, sign=SIGN_CONVERTER[node['type']])
+                                render_engine(
+                                    node['values'],
+                                    spaces=spaces+SPACE
+                                    ),
+                                spaces,
+                                sign=SIGN_CONVERTER[node['type']]
+                                )
 
         # If node has CHANGED type, these changes could have been made in
         # three ways
@@ -93,3 +102,7 @@ def render(diff_dict, spaces=2):
     # Returning output
     output += ' ' * (spaces-2) + '}'
     return output
+
+
+def render(diff):
+    return render_engine(diff, spaces=2)
