@@ -26,7 +26,6 @@ def nest_formatter(dict_, spaces):
     row_indent = ' ' * spaces
     blank_indent = ' ' * (spaces - 2)  # Removes 2 chars: (+/-) and space
     output = f"{{\n  {row_indent}{key}: {value}\n{blank_indent}}}"
-    print(output)
     return output
 
 
