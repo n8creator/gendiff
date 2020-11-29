@@ -15,7 +15,7 @@ def formatter(type, value, spaces, sign=None):
     left_indent = '' + (' ' * spaces)
     if not sign:
         sign = ' '
-    output = '{0}{1} {2}: {3}\n'.format(left_indent, sign, type, value)
+    output = f'{left_indent}{sign} {type}: {value}\n'
     return output
 
 
@@ -23,8 +23,10 @@ def nest_formatter(dict_, spaces):
     # Dict destructuring to key, value variables
     key, value = next(iter(dict_.items()))
 
-    left_indent = '' + (' ' * spaces)
-    output = '{{\n{0}{1}: {2}\n{0}}}'.format(left_indent, key, value)
+    row_indent = ' ' * spaces
+    blank_indent = ' ' * (spaces - 2)  # Removes 2 chars: (+/-) and space
+    output = f"{{\n  {row_indent}{key}: {value}\n{blank_indent}}}"
+    print(output)
     return output
 
 

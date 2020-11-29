@@ -23,8 +23,8 @@
       + baz: bars
         foo: bar
       - nest: {
-          key: value
-          }
+            key: value
+        }
       + nest: str
     }
   - group2: {
@@ -34,11 +34,11 @@
         }
     }
   + group3: {
+        fee: 100500
         deep: {
             id: {
                 number: 45
             }
         }
-        fee: 100500
     }
 }
