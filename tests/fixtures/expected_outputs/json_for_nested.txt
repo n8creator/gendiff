@@ -43,7 +43,7 @@
                             "wow": {
                                 "type": "changed",
                                 "values": [
-                                    "bark",
+                                    "",
                                     "so much"
                                 ]
                             }

@@ -88,9 +88,9 @@ def render_engine(diff, spaces):
             # Case 3: Both NEW & OLD values are not dict's
             else:
                 output.append(formatter(type, node['values'][OLD_VAL],
-                                        spaces=spaces, sign='+'))
-                output.append(formatter(type, node['values'][NEW_VAL],
                                         spaces=spaces, sign='-'))
+                output.append(formatter(type, node['values'][NEW_VAL],
+                                        spaces=spaces, sign='+'))
 
         # Any other cases (if node has been ADDED, DELETED or UNMODIFIED)
         else:
