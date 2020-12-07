@@ -15,8 +15,8 @@ def formatted_diff(input, output, format=None):
     # Returning formatted tree depending on the format specified by the user
     if format:
         if format.lower() == 'json':
-            return render_json(diff)
+            return render_json(diff) + '\n'
         elif format.lower() == 'plain':
-            return render_plain(diff)
+            return render_plain(diff) + '\n'
     else:
         return render(diff)

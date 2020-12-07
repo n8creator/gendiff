@@ -105,4 +105,4 @@ def render_engine(diff, spaces):
 
 
 def render(diff):
-    return render_engine(diff, spaces=2) + '\n'
+    return render_engine(diff, spaces=2)
