@@ -20,7 +20,7 @@ def formatter(type, value, spaces, sign=None):
 
 
 def nest_formatter(dict_, spaces):
-    # Dict destructuring to key, value variables
+    # Destructuring dict to key & value variables
     key, value = next(iter(dict_.items()))
 
     row_indent = ' ' * spaces
@@ -35,7 +35,7 @@ def render_engine(diff, spaces):
     output.append('{\n')
 
     # Iterate diff_dict
-    for type, node in sorted(diff.items()):
+    for type, node in diff.items():
 
         # If node type has NESTED type then we put node value in
         # render_engine() function and call it recursively
@@ -77,14 +77,14 @@ def render_engine(diff, spaces):
             # Case 2: NEW value is dict and OLD value is not
             elif not isinstance(node['values'][OLD_VAL], dict) and\
                     isinstance(node['values'][NEW_VAL], dict):
+                output.append(formatter(type, node['values'][OLD_VAL],
+                                        spaces=spaces, sign='-'))
                 output.append(formatter(type, nest_formatter(
                                                 node['values'][NEW_VAL],
                                                 spaces=spaces+SPACE
                                                 ),
                                         spaces=spaces,
-                                        sign='-'))
-                output.append(formatter(type, node['values'][NEW_VAL],
-                                        spaces=spaces, sign='+'))
+                                        sign='+'))
 
             # Case 3: Both NEW & OLD values are not dict's
             else:
@@ -105,4 +105,4 @@ def render_engine(diff, spaces):
 
 
 def render(diff):
-    return render_engine(diff, spaces=2)
+    return render_engine(diff, spaces=2) + '\n'
