@@ -11,7 +11,7 @@ import pytest
     ('nested1.yml', 'nested2.yml', 'plain_for_nested.txt', 'plain'),
     ('nested1.json', 'nested2.json', 'json_for_nested.txt', 'json'),
     ('nested1.yml', 'nested2.yml', 'json_for_nested.txt', 'json'),
-    ])
+    ])  # noqa: E123
 def test_default_output(input_file, output_file, expected_output, format):
 
     # Argument & Expected Output files paths
