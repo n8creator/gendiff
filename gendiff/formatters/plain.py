@@ -57,4 +57,4 @@ def render_plain_engine(diff, path):
 
 
 def render_plain(diff):
-    return render_plain_engine(diff, path=None)
+    return (render_plain_engine(diff, path=None) + '\n')
