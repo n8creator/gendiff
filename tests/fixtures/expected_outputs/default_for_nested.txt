@@ -4,14 +4,16 @@
         setting1: Value 1
       - setting2: 200
       - setting3: true
-      + setting3: null
+      + setting3: {
+            key: value
+        }
       + setting4: blah blah
       + setting5: {
             key5: value5
         }
         setting6: {
             doge: {
-              - wow: 
+              - wow: too much
               + wow: so much
             }
             key: value
@@ -40,5 +42,22 @@
                 number: 45
             }
         }
+    }
+    group4: {
+      - default: null
+      + default: 
+      - foo: 0
+      + foo: null
+      - isNested: false
+      + isNested: none
+      + key: false
+        nest: {
+          - bar: 
+          + bar: 0
+          - isNested: true
+        }
+      + someKey: true
+      - type: bas
+      + type: bar
     }
 }

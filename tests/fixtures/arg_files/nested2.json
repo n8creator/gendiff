@@ -2,7 +2,9 @@
   "common": {
     "follow": false,
     "setting1": "Value 1",
-    "setting3": null,
+    "setting3": {
+      "key": "value"
+    },
     "setting4": "blah blah",
     "setting5": {
       "key5": "value5"
@@ -15,11 +17,13 @@
       }
     }
   },
+
   "group1": {
     "foo": "bar",
     "baz": "bars",
     "nest": "str"
   },
+
   "group3": {
     "fee": 100500,
     "deep": {
@@ -27,5 +31,17 @@
         "number": 45
       }
     }
+  },
+
+  "group4": {
+    "default": "",
+    "foo": null,
+    "isNested": "none",
+    "key": false,
+    "nest": {
+      "bar": 0
+    },
+    "someKey": true,
+    "type": "bar"
   }
 }

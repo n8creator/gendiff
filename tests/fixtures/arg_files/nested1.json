@@ -6,7 +6,7 @@
     "setting6": {
       "key": "value",
       "doge": {
-        "wow": ""
+        "wow": "too much"
       }
     }
   },
@@ -22,5 +22,15 @@
     "deep": {
       "id": 45
     }
+  },
+  "group4": {
+    "default": null,
+    "foo": 0,
+    "isNested": false,
+    "nest": {
+      "bar": "",
+      "isNested": true
+    },
+    "type": "bas"
   }
 }
