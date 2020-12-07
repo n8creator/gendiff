@@ -18,5 +18,7 @@ def formatted_diff(input, output, format=None):
             return render_json(diff)
         elif format.lower() == 'plain':
             return render_plain(diff)
+        elif format.lower() == 'stylish':
+            return render(diff)
     else:
         return render(diff)
