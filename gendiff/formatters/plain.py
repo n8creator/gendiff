@@ -43,14 +43,14 @@ def render_plain_engine(diff, path):
                                               root_path)
                           )
         elif data['type'] == ADDED:
-            output.append(f'Property \'{root_path}\' was added with ' +
-                          f'value: {format_value(data["values"])}')
+            output.append(f'Property \'{root_path}\' was added with '
+                          + f'value: {format_value(data["values"])}')
         elif data['type'] == DELETED:
             output.append(f'Property \'{root_path}\' was removed')
         elif data['type'] == CHANGED:
-            output.append(f'Property \'{root_path}\' was updated. From ' +
-                          f'{format_value(data["values"][OLD_VAL])} to ' +
-                          f'{format_value(data["values"][NEW_VAL])}')
+            output.append(f'Property \'{root_path}\' was updated. From '
+                          + f'{format_value(data["values"][OLD_VAL])} to '
+                          + f'{format_value(data["values"][NEW_VAL])}')
 
     # Return output as a string
     return '\n'.join(output)

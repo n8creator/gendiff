@@ -3,14 +3,14 @@ import pytest
 
 
 @pytest.mark.parametrize('input_file, output_file, expected_output, format', [
-        ('file1.json', 'file2.json', 'default_for_flat.txt', None),
-        ('file1.yml', 'file2.yml', 'default_for_flat.txt', None),
-        ('nested1.json', 'nested2.json', 'default_for_nested.txt', None),
-        ('nested1.yml', 'nested2.yml', 'default_for_nested.txt', None),
-        ('nested1.json', 'nested2.json', 'plain_for_nested.txt', 'plain'),
-        ('nested1.yml', 'nested2.yml', 'plain_for_nested.txt', 'plain'),
-        ('nested1.json', 'nested2.json', 'json_for_nested.txt', 'json'),
-        ('nested1.yml', 'nested2.yml', 'json_for_nested.txt', 'json'),
+    ('file1.json', 'file2.json', 'default_for_flat.txt', None),
+    ('file1.yml', 'file2.yml', 'default_for_flat.txt', None),
+    ('nested1.json', 'nested2.json', 'default_for_nested.txt', None),
+    ('nested1.yml', 'nested2.yml', 'default_for_nested.txt', None),
+    ('nested1.json', 'nested2.json', 'plain_for_nested.txt', 'plain'),
+    ('nested1.yml', 'nested2.yml', 'plain_for_nested.txt', 'plain'),
+    ('nested1.json', 'nested2.json', 'json_for_nested.txt', 'json'),
+    ('nested1.yml', 'nested2.yml', 'json_for_nested.txt', 'json'),
     ])
 def test_default_output(input_file, output_file, expected_output, format):
 
