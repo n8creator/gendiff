@@ -16,4 +16,4 @@ Property 'group4.key' was added with value: false
 Property 'group4.nest.bar' was updated. From '' to 0
 Property 'group4.nest.isNested' was removed
 Property 'group4.someKey' was added with value: true
-Property 'group4.type' was updated. From 'bas' to 'bar'
+Property 'group4.type' was updated. From 'bas' to 'bar' 

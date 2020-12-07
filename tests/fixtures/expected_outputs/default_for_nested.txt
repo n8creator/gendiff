@@ -60,4 +60,4 @@
       - type: bas
       + type: bar
     }
-}
+} 
