@@ -19,4 +19,4 @@ def formatted_diff(input, output, format=None):
         elif format.lower() == 'plain':
             return render_plain(diff) + '\n'
     else:
-        return render(diff)
+        return render(diff) + '\n'
