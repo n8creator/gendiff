@@ -1,11 +1,11 @@
 """Gendiff Executable Script That Will Be Installed When Installing Package."""
-from gendiff.args_parser import parse_args
+from gendiff.cli import get_args
 from gendiff import generate_diff
 
 
 def main():
     # Parsing arguments and appending them to variables
-    args = parse_args()
+    args = get_args()
 
     # Returning formatted diff with 'format' argument specified by user
     print(generate_diff(file_path_1=args.first_file,
