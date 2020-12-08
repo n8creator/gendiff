@@ -4,7 +4,7 @@ from gendiff.formatters.plain import render_plain
 from gendiff.formatters.json import render_json
 
 
-def formatter(diff, format):
+def format_tree(diff, format):
     """Function returns formatted tree depending on the option specified by
     the user.
 
