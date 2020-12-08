@@ -1,4 +1,4 @@
-from gendiff.format_diff import formatted_diff as generate_diff
+from gendiff import generate_diff
 import pytest
 import json
 import os

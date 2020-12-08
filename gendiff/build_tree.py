@@ -1,4 +1,4 @@
-"""Generate Difference Module."""
+"""Build Difference Tree Module."""
 
 from collections import OrderedDict
 
@@ -7,16 +7,19 @@ UNMODIFIED, CHANGED = 'unmodified', 'changed'
 
 
 def get_ordered_joint_keys(dict1, dict2):
-    """Function compares 2 dictionaries and returns joint keys.
+    """Function compares 2 dictionaries and returns joint keys (keys list may
+    be sorted or unsorted)
 
     Args:
         dict1 ([dict]): first dictionary
         dict2 ([dict]): second dictionary
 
     Returns:
-        [list]: if dict1 and dict2 is not empty, function returns list of
-                joint keys sorted alphabetically. In case dict1 or dict2 is
-                empty, list of keys returns 'as is' in original order.
+        [list]: if both comparable dictionaries are not empty and not equal,
+                function returns list of joint keys sorted alphabetically.
+                In case when one of the dictionary is empty or both of them
+                are equal, function returns list list of keys "as is"
+                (in original order).
     """
 
     # Initializing output list
@@ -30,10 +33,11 @@ def get_ordered_joint_keys(dict1, dict2):
         if key not in output_list:
             output_list.append(key)
 
-    # If dict1 or dict2 is empty, or both dicts are equal
+    # If one of the dict1 or dict2 is empty, or both dicts are equal
     # return output unsorted
     if (not dict1 or not dict2) or (dict1 == dict2):
         return output_list
+    # otherwise return sorted list
     else:
         return sorted(output_list)
 
@@ -42,9 +46,9 @@ def to_string(value):
     """System Keyword to String Converter.
 
     Function accept some value, and checks if this value belong to Bool or None
-    value. In case value is Bool or None function return system value formatted
-    as string, otherwise function returns value "as it is" without any
-    formatting.
+    type. In case value is Bool or None, function returns system value
+    formatted as a string. Otherwise function returns value "as it is" without
+    any formatting.
 
     Args:
         value ([any]): any value
@@ -64,10 +68,10 @@ def to_string(value):
         return value
 
 
-def generate_difference(input, output):
+def build_diff_tree(input, output):
     """Generate Difference Function.
 
-    Function accepts two dicts (input and output), and finds
+    Function accepts two dicts (input and output), and discovers
     the difference between keys and values in those dicts.
 
     Args:
@@ -97,8 +101,8 @@ def generate_difference(input, output):
 
             if isinstance(input_val, dict) and isinstance(output_val, dict):
                 difference[key] = ({'type': NESTED,
-                                    'values': generate_difference(input_val,
-                                                                  output_val)
+                                    'values': build_diff_tree(input_val,
+                                                              output_val)
                                     })
             elif input_val == output_val:
                 difference[key] = ({'type': UNMODIFIED,
@@ -114,8 +118,8 @@ def generate_difference(input, output):
             values = output[key]
             if type(values) == dict:
                 difference[key] = ({'type': ADDED,
-                                    'values': generate_difference(values,
-                                                                  values)
+                                    'values': build_diff_tree(values,
+                                                              values)
                                     })
             else:
                 difference[key] = ({'type': ADDED,
@@ -125,8 +129,8 @@ def generate_difference(input, output):
             values = input[key]
             if type(values) == dict:
                 difference[key] = ({'type': DELETED,
-                                    'values': generate_difference(values,
-                                                                  values)
+                                    'values': build_diff_tree(values,
+                                                              values)
                                     })
             else:
                 difference[key] = ({'type': DELETED,

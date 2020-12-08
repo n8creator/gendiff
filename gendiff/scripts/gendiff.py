@@ -1,6 +1,6 @@
 """Gendiff Executable Script That Will Be Installed When Installing Package."""
 from gendiff.args_parser import parse_args
-from gendiff.format_diff import formatted_diff
+from gendiff import generate_diff
 
 
 def main():
@@ -8,9 +8,9 @@ def main():
     args = parse_args()
 
     # Returning formatted diff with 'format' argument specified by user
-    print(formatted_diff(input=args.first_file,
-                         output=args.second_file,
-                         format=args.format))
+    print(generate_diff(file_path_1=args.first_file,
+                        file_path_2=args.second_file,
+                        format=args.format))
 
 
 if __name__ == '__main__':

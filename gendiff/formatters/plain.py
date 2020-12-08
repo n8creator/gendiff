@@ -1,4 +1,4 @@
-from gendiff.generate_diff import ADDED, DELETED, NESTED, CHANGED
+from gendiff.build_tree import ADDED, DELETED, NESTED, CHANGED
 
 # OLD_VAL and NEW_VAL are indexes for dicts containing replaced value (OLD_VAL)
 # and new one (NEW_VAL).They are used to get rid of "magic numbers" in the code

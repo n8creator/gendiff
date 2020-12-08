@@ -1,4 +1,4 @@
-from gendiff.generate_diff import ADDED, DELETED, NESTED, CHANGED, UNMODIFIED
+from gendiff.build_tree import ADDED, DELETED, NESTED, CHANGED, UNMODIFIED
 
 SPACE = 4
 OLD_VAL, NEW_VAL = 0, 1
@@ -104,5 +104,5 @@ def render_engine(diff, spaces):
     return ''.join(output)
 
 
-def render(diff):
+def render_stylish(diff):
     return (render_engine(diff, spaces=2))
