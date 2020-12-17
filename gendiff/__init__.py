@@ -3,7 +3,7 @@ from gendiff.build_tree import build_diff_tree
 from gendiff.call_formatter import format_tree
 
 
-def generate_diff(file_path_1, file_path_2, format):
+def generate_diff(file_path_1, file_path_2, format=None):
 
     # Converting agruments to .json dicts and Generating difference tree
     diff = build_diff_tree(to_dict(file_path_1),
