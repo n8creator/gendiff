@@ -10,6 +10,7 @@ SIGN_CONVERTER = {
     DELETED: '-'
 }
 
+
 def to_string(value):
     """System Keyword to String Converter.
 

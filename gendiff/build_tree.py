@@ -77,7 +77,7 @@ def build_diff_tree(input, output):
                 difference[key] = {'type': NESTED,
                                    'values': build_diff_tree(input_val,
                                                              output_val)
-                                    }
+                                   }
             elif input_val == output_val:
                 difference[key] = {'type': UNMODIFIED,
                                    'values': input_val}
@@ -86,7 +86,7 @@ def build_diff_tree(input, output):
                                    'values': (input_val,
                                               output_val
                                               )
-                                    }
+                                   }
 
         if key in added:
             values = output[key]
@@ -94,7 +94,7 @@ def build_diff_tree(input, output):
                 difference[key] = {'type': ADDED,
                                    'values': build_diff_tree(values,
                                                              values)
-                                    }
+                                   }
             else:
                 difference[key] = {'type': ADDED,
                                    'values': values}
@@ -105,7 +105,7 @@ def build_diff_tree(input, output):
                 difference[key] = {'type': DELETED,
                                    'values': build_diff_tree(values,
                                                              values)
-                                    }
+                                   }
             else:
                 difference[key] = {'type': DELETED,
                                    'values': values}
