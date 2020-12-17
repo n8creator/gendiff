@@ -1,7 +1,6 @@
 from gendiff.build_tree import ADDED, DELETED, NESTED, CHANGED, UNMODIFIED
 
 SPACE = 4
-OLD_VAL, NEW_VAL = 0, 1
 
 SIGN_CONVERTER = {
     NESTED: None,
@@ -87,36 +86,37 @@ def render_engine(diff, spaces):
         # If node has CHANGED type, these changes could have been made in
         # three ways
         elif node['type'] == CHANGED:
+            (old_value, new_value) = node["values"]
 
             # Case 1: OLD value is dict and NEW value is not
-            if isinstance(node['values'][OLD_VAL], dict) and\
-                    not isinstance(node['values'][NEW_VAL], dict):
+            if isinstance(old_value, dict) and\
+                    not isinstance(new_value, dict):
                 output.append(formatter(type,
                                         nest_formatter(
-                                            node['values'][OLD_VAL],
+                                            old_value,
                                             spaces=spaces + SPACE),
                                         spaces=spaces,
                                         sign='-'))
-                output.append(formatter(type, node['values'][NEW_VAL],
+                output.append(formatter(type, new_value,
                                         spaces=spaces, sign='+'))
 
             # Case 2: NEW value is dict and OLD value is not
-            elif not isinstance(node['values'][OLD_VAL], dict) and\
-                    isinstance(node['values'][NEW_VAL], dict):
-                output.append(formatter(type, node['values'][OLD_VAL],
+            elif not isinstance(old_value, dict) and\
+                    isinstance(new_value, dict):
+                output.append(formatter(type, old_value,
                                         spaces=spaces, sign='-'))
                 output.append(formatter(type,
                                         nest_formatter(
-                                            node['values'][NEW_VAL],
+                                            new_value,
                                             spaces=spaces + SPACE),
                                         spaces=spaces,
                                         sign='+'))
 
             # Case 3: Both NEW & OLD values are not dict's
             else:
-                output.append(formatter(type, node['values'][OLD_VAL],
+                output.append(formatter(type, old_value,
                                         spaces=spaces, sign='-'))
-                output.append(formatter(type, node['values'][NEW_VAL],
+                output.append(formatter(type, new_value,
                                         spaces=spaces, sign='+'))
 
         # Any other cases (if node has been ADDED, DELETED or UNMODIFIED)
@@ -130,5 +130,5 @@ def render_engine(diff, spaces):
     return ''.join(output)
 
 
-def render_stylish(diff):
+def render(diff):
     return (render_engine(diff, spaces=2))

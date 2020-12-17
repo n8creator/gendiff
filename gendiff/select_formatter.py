@@ -1,5 +1,5 @@
 """Select Formatter Module."""
-from gendiff.formatters.stylish import render_stylish
+from gendiff.formatters.stylish import render as stylish_render
 from gendiff.formatters.plain import render_plain
 from gendiff.formatters.json import render_json
 
@@ -24,6 +24,6 @@ def format_tree(diff, format):
         elif format.lower() == 'plain':
             return render_plain(diff)
         elif format.lower() == 'stylish':
-            return render_stylish(diff)
+            return stylish_render(diff)
     else:
-        return render_stylish(diff)
+        return stylish_render(diff)
