@@ -10,12 +10,37 @@ SIGN_CONVERTER = {
     DELETED: '-'
 }
 
+def to_string(value):
+    """System Keyword to String Converter.
+
+    Function accept some value, and checks if this value belong to Bool or None
+    type. In case value is Bool or None, function returns system value
+    formatted as a string. Otherwise function returns value "as it is" without
+    any formatting.
+
+    Args:
+        value ([any]): any value
+
+    Returns:
+        value ([string, dict]): formatted value
+    """
+
+    if isinstance(value, bool):
+        if value is True:
+            return 'true'
+        elif value is False:
+            return 'false'
+    elif value is None:
+        return 'null'
+    else:
+        return value
+
 
 def formatter(type, value, spaces, sign=None):
     left_indent = '' + (' ' * spaces)
     if not sign:
         sign = ' '
-    output = f'{left_indent}{sign} {type}: {value}\n'
+    output = f'{left_indent}{sign} {type}: {to_string(value)}\n'
     return output
 
 

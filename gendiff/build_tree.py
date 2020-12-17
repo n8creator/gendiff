@@ -42,32 +42,6 @@ def get_ordered_joint_keys(dict1, dict2):
         return sorted(output_list)
 
 
-def to_string(value):
-    """System Keyword to String Converter.
-
-    Function accept some value, and checks if this value belong to Bool or None
-    type. In case value is Bool or None, function returns system value
-    formatted as a string. Otherwise function returns value "as it is" without
-    any formatting.
-
-    Args:
-        value ([any]): any value
-
-    Returns:
-        value ([string, dict]): formatted value
-    """
-
-    if isinstance(value, bool):
-        if value is True:
-            return 'true'
-        elif value is False:
-            return 'false'
-    elif value is None:
-        return 'null'
-    else:
-        return value
-
-
 def build_diff_tree(input, output):
     """Generate Difference Function.
 
@@ -100,41 +74,41 @@ def build_diff_tree(input, output):
             input_val, output_val = input[key], output[key]
 
             if isinstance(input_val, dict) and isinstance(output_val, dict):
-                difference[key] = ({'type': NESTED,
-                                    'values': build_diff_tree(input_val,
-                                                              output_val)
-                                    })
+                difference[key] = {'type': NESTED,
+                                   'values': build_diff_tree(input_val,
+                                                             output_val)
+                                    }
             elif input_val == output_val:
-                difference[key] = ({'type': UNMODIFIED,
-                                    'values': to_string(input_val)})
+                difference[key] = {'type': UNMODIFIED,
+                                   'values': input_val}
             else:
-                difference[key] = ({'type': CHANGED,
-                                    'values': (to_string(input_val),
-                                               to_string(output_val)
-                                               )
-                                    })
+                difference[key] = {'type': CHANGED,
+                                   'values': (input_val,
+                                              output_val
+                                              )
+                                    }
 
         if key in added:
             values = output[key]
             if type(values) == dict:
-                difference[key] = ({'type': ADDED,
-                                    'values': build_diff_tree(values,
-                                                              values)
-                                    })
+                difference[key] = {'type': ADDED,
+                                   'values': build_diff_tree(values,
+                                                             values)
+                                    }
             else:
-                difference[key] = ({'type': ADDED,
-                                    'values': to_string(values)})
+                difference[key] = {'type': ADDED,
+                                   'values': values}
 
         if key in deleted:
             values = input[key]
             if type(values) == dict:
-                difference[key] = ({'type': DELETED,
-                                    'values': build_diff_tree(values,
-                                                              values)
-                                    })
+                difference[key] = {'type': DELETED,
+                                   'values': build_diff_tree(values,
+                                                             values)
+                                    }
             else:
-                difference[key] = ({'type': DELETED,
-                                    'values': to_string(values)})
+                difference[key] = {'type': DELETED,
+                                   'values': values}
 
     # Returning function output
     return difference
