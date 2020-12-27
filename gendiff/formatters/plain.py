@@ -14,10 +14,7 @@ def to_string(value):
     if isinstance(value, dict):
         return '[complex value]'
     elif isinstance(value, bool):
-        if value is True:
-            return 'true'
-        elif value is False:
-            return 'false'
+        return 'true' if value is True else 'false'
     elif isinstance(value, int):
         return int(value)
     elif value is None:
