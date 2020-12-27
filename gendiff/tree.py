@@ -42,7 +42,7 @@ def get_ordered_joint_keys(dict1, dict2):
         return sorted(output_list)
 
 
-def build_diff_tree(input, output):
+def build_diff(input, output):
     """Generate Difference Function.
 
     Function accepts two dicts (input and output), and discovers
@@ -75,8 +75,8 @@ def build_diff_tree(input, output):
 
             if isinstance(input_val, dict) and isinstance(output_val, dict):
                 difference[key] = {'type': NESTED,
-                                   'values': build_diff_tree(input_val,
-                                                             output_val)
+                                   'values': build_diff(input_val,
+                                                        output_val)
                                    }
             elif input_val == output_val:
                 difference[key] = {'type': UNMODIFIED,
@@ -92,8 +92,8 @@ def build_diff_tree(input, output):
             values = output[key]
             if type(values) == dict:
                 difference[key] = {'type': ADDED,
-                                   'values': build_diff_tree(values,
-                                                             values)
+                                   'values': build_diff(values,
+                                                        values)
                                    }
             else:
                 difference[key] = {'type': ADDED,
@@ -103,8 +103,8 @@ def build_diff_tree(input, output):
             values = input[key]
             if type(values) == dict:
                 difference[key] = {'type': DELETED,
-                                   'values': build_diff_tree(values,
-                                                             values)
+                                   'values': build_diff(values,
+                                                        values)
                                    }
             else:
                 difference[key] = {'type': DELETED,

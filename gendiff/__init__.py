@@ -1,13 +1,13 @@
-from gendiff.to_dict_converter import to_dict
-from gendiff.build_tree import build_diff_tree
-from gendiff.call_formatter import format_tree
+from gendiff.converter import to_dict
+from gendiff.tree import build_diff
+from gendiff.formatter import format_tree
 
 
 def generate_diff(file_path_1, file_path_2, format=None):
 
     # Converting agruments to .json dicts and Generating difference tree
-    diff = build_diff_tree(to_dict(file_path_1),
-                           to_dict(file_path_2))
+    diff = build_diff(to_dict(file_path_1),
+                      to_dict(file_path_2))
 
     # Return formatted tree
     return format_tree(diff, format)

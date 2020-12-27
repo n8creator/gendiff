@@ -1,4 +1,4 @@
-from gendiff.build_tree import ADDED, DELETED, NESTED, CHANGED, UNMODIFIED
+from gendiff.tree import ADDED, DELETED, NESTED, CHANGED, UNMODIFIED
 
 SPACE = 4
 
@@ -54,7 +54,7 @@ def nest_formatter(dict_, spaces):
     return output
 
 
-def render_engine(diff, spaces):
+def render_diff(diff, spaces):
     # Initialize output list
     output = []
     output.append('{\n')
@@ -66,7 +66,7 @@ def render_engine(diff, spaces):
         # render_engine() function and call it recursively
         if node['type'] == NESTED:
             output.append(formatter(type,
-                                    render_engine(
+                                    render_diff(
                                         node['values'],
                                         spaces=spaces + SPACE),
                                     spaces))
@@ -77,7 +77,7 @@ def render_engine(diff, spaces):
         # arithmetic sign in output string (before node type)
         elif not node['type'] == CHANGED and isinstance(node['values'], dict):
             output.append(formatter(type,
-                                    render_engine(
+                                    render_diff(
                                         node['values'],
                                         spaces=spaces + SPACE),
                                     spaces,
@@ -131,4 +131,4 @@ def render_engine(diff, spaces):
 
 
 def render(diff):
-    return (render_engine(diff, spaces=2))
+    return (render_diff(diff, spaces=2))

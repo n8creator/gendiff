@@ -1,8 +1,8 @@
-from gendiff.build_tree import ADDED, DELETED, NESTED, CHANGED
+from gendiff.tree import ADDED, DELETED, NESTED, CHANGED
 
 
 def to_string(value):
-    """Function formatting input value to match expected tex output
+    """Function formatting input value to match expected text output
 
     Args:
         var ([any]): any value variable
@@ -23,7 +23,7 @@ def to_string(value):
         return f'\'{value}\''
 
 
-def render_plain_engine(diff, path):
+def render_diff(diff, path):
     # Initialize output variable
     output = []
 
@@ -33,8 +33,8 @@ def render_plain_engine(diff, path):
 
         # diff_dict traversal
         if data['type'] == NESTED:
-            output.append(render_plain_engine(data['values'],
-                                              root_path)
+            output.append(render_diff(data['values'],
+                                      root_path)
                           )
         elif data['type'] == ADDED:
             output.append((f'Property \'{root_path}\' was added with '
@@ -51,5 +51,5 @@ def render_plain_engine(diff, path):
     return '\n'.join(output)
 
 
-def render_plain(diff):
-    return (render_plain_engine(diff, path=None))
+def render(diff):
+    return (render_diff(diff, path=None))

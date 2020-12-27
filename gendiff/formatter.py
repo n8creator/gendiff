@@ -1,7 +1,7 @@
 """Select Formatter Module."""
 from gendiff.formatters.stylish import render as render_stylish
-from gendiff.formatters.plain import render_plain
-from gendiff.formatters.json import render_json
+from gendiff.formatters.plain import render as render_plain
+from gendiff.formatters.json import render as render_json
 
 
 FORMATS = {
