@@ -4,7 +4,7 @@ install:
 lint:
 	poetry run flake8 gendiff
 
-test:
+test: lint
 	poetry run pytest -v --verbose -s --cov=gendiff tests/
 
 coverage_xml:

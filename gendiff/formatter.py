@@ -1,16 +1,15 @@
-"""Select Formatter Module."""
+"""Module Selecting Formatter."""
 from gendiff.formatters.stylish import render as render_stylish
 from gendiff.formatters.plain import render as render_plain
 from gendiff.formatters.json import render as render_json
 
 
+JSON, PLAIN, STYLISH = 'json', 'plain', 'stylish'
 FORMATS = {
-    'json': render_json,
-    'plain': render_plain,
-    'stylish': render_stylish
+    JSON: render_json,
+    PLAIN: render_plain,
+    STYLISH: render_stylish
 }
-
-DEFAULT_FORMAT = 'stylish'
 
 
 def format_tree(diff, format):
@@ -28,9 +27,9 @@ def format_tree(diff, format):
     """
 
     if format is None:
-        format = DEFAULT_FORMAT
+        format = STYLISH
 
     if format in FORMATS.keys():
         return FORMATS.get(format)(diff)
     else:
-        return RuntimeError('ERROR: Style is not supported')
+        return RuntimeError(f'ERROR: format "{format}" is not supported')
