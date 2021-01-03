@@ -1,5 +1,6 @@
 [tool.poetry]
 name = "hexlet_code"
+# name = "n8creator_gendiff"
 version = "0.1.6"
 description = "Generate Difference Script allows you find the difference between two files in .json or .yaml/.yml formats"
 authors = ["n8creator <n8creator@pm.me>"]
