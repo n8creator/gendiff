@@ -1,30 +1,33 @@
-"""Module Loading Data."""
+"""Module Parsing Data."""
 import json
 import yaml
 
+LOADERS = {
+    '.yaml': yaml.safe_load,
+    '.yml': yaml.safe_load,
+    '.json': json.loads
+}
 
-def parse_data(file, file_extension):
-    """Function loads file and processes it depending on the extension.
+
+def parse_data(data, file_extension):
+    """Function loads file data and processes it depending on the extension.
 
     Args:
-        file ([json, yml, yaml]): input file
+        data ([string]): string file data
         file_extension ([string]): file extension
 
     Raises:
-        ValueError: message about unsupported file
+        ValueError: message about unsupported file format
 
     Returns:
-        [dict]: function returns dict file
+        [dict]: function returns python dict file
     """
-    # Processing files with .json extension
-    if file_extension == '.json':
-        return json.load(file)
 
-    # Processing files with .yml or .yaml extension
-    elif file_extension == '.yml' or '.yaml':
-        return yaml.safe_load(file)
+    # Parse data if file format contains in LOADERS dict
+    if file_extension in LOADERS.keys():
+        return LOADERS.get(file_extension)(data)
 
-    # Raise Error for Unsupported Files
+    # Raise Error for unsupported file formats
     raise ValueError(
         (f'Selected file with {file_extension} extension format unsupported.'
          f'Please select file in ".json" or ".yml/.yaml" format')

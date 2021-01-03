@@ -1,24 +1,23 @@
-"""Module Converting File to Dict."""
-import os
+"""Module Converting Input File into Dict."""
 from gendiff.parser import parse_data
+from gendiff.loader import load_data
 
 
 def to_dict(file_path):
-    """Convert file to dict{} format.
+    """Convert file to Python's dict.
 
     Function accepts some input file with .json, .yml or .yaml extension
-    and returns data as a dict.
+    and returns data as a Python's dict.
 
     Args:
         file_path ([json, yml, yaml]): input file
 
     Returns:
-        dict: function returns dictionary
+        dict: function returns Python's dict
     """
 
-    # Getting file extension
-    _, file_extension = os.path.splitext(file_path)
+    # Load file data
+    data, extension = load_data(file_path)
 
-    # Loading data as a dict
-    with open(file_path) as file:
-        return parse_data(file, file_extension)
+    # Return Python's dict
+    return parse_data(data, extension)
